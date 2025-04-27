@@ -32,6 +32,14 @@ import threading
 import shutil
 import logging
 
+_original_read_text = pathlib.Path.read_text  
+
+def _patched_read_text(self, *args, **kwargs):
+    if "encoding" not in kwargs:
+        kwargs['encoding'] = 'utf-8'
+    return _original_read_text(self, *args, **kwargs)
+
+pathlib.Path.read_text = _patched_read_text
 
 logging.getLogger("numba").setLevel(logging.WARNING)
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -807,10 +815,10 @@ def change_f0_method(f0method8):
 
 
 with gr.Blocks(title="E-synth RVC MOD") as app:
-    gr.Markdown("## RVC WebUI")
+    gr.Markdown("## Esynth rvc mod by ACE")
     gr.Markdown(
         value=i18n(
-            "本软件以MIT协议开源, 作者不对软件具备任何控制力, 使用软件者、传播软件导出的声音者自负全责. <br>如不认可该条款, 则不能使用或引用软件包内任何代码和文件. 详见根目录<b>LICENSE</b>."
+            "Welcome to Esynth, a simplified, windows easily made compatible RVC mod. Credits to ACE"
         )
     )
     with gr.Tabs():

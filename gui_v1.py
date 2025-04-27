@@ -1077,7 +1077,8 @@ if __name__ == "__main__":
 
         def launch_gradio_server(self):
             import subprocess
-            subprocess.Popen(["python", "infer-web.py"])
+            python_executable = sys.executable
+            subprocess.Popen([python_executable, "infer-web.py"])
 
 
     gui = GUI()
