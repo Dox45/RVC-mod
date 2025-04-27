@@ -32,12 +32,14 @@ import threading
 import shutil
 import logging
 
-_original_read_text = pathlib.Path.read_text  
+_original_read_text = pathlib.Path.read_text
+
 
 def _patched_read_text(self, *args, **kwargs):
     if "encoding" not in kwargs:
-        kwargs['encoding'] = 'utf-8'
+        kwargs["encoding"] = "utf-8"
     return _original_read_text(self, *args, **kwargs)
+
 
 pathlib.Path.read_text = _patched_read_text
 
@@ -1617,7 +1619,7 @@ with gr.Blocks(title="E-synth RVC MOD") as app:
                 gr.Markdown(traceback.format_exc())
 
     if config.iscolab:
-        app.queue( max_size=1022).launch(max_threads=511,share=True)
+        app.queue(max_size=1022).launch(max_threads=511, share=True)
     else:
         app.queue(max_size=1022).launch(
             max_threads=511,

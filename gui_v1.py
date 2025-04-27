@@ -116,7 +116,7 @@ if __name__ == "__main__":
             self.pth_path: str = ""
             self.index_path: str = ""
             self.pitch: int = 0
-            self.formant=0.0
+            self.formant = 0.0
             self.sr_type: str = "sr_model"
             self.block_time: float = 0.25  # s
             self.threhold: int = -60
@@ -528,9 +528,7 @@ if __name__ == "__main__":
                     sg.Text("0", key="infer_time"),
                 ],
             ]
-            layout.append(
-                [sg.Button("Train Speech", key="launch_gradio")]
-            )
+            layout.append([sg.Button("Train Speech", key="launch_gradio")])
 
             self.window = sg.Window("RVC - GUI", layout=layout, finalize=True)
             self.event_handler()
@@ -620,7 +618,9 @@ if __name__ == "__main__":
                         )
 
                 if event == "launch_gradio":
-                    threading.Thread(target=self.launch_gradio_server, daemon=True).start()
+                    threading.Thread(
+                        target=self.launch_gradio_server, daemon=True
+                    ).start()
 
                 # Parameter hot update
                 if event == "threhold":
@@ -667,7 +667,7 @@ if __name__ == "__main__":
             if len(values["index_path"].strip()) == 0:
                 sg.popup(i18n("请选择index文件"))
                 return False
-            pattern = re.compile("[^\x00-\x7F]+")
+            pattern = re.compile("[^\x00-\x7f]+")
             if pattern.findall(values["pth_path"]):
                 sg.popup(i18n("pth文件路径不可包含中文"))
                 return False
@@ -1077,8 +1077,8 @@ if __name__ == "__main__":
 
         def launch_gradio_server(self):
             import subprocess
+
             python_executable = sys.executable
             subprocess.Popen([python_executable, "infer-web.py"])
-
 
     gui = GUI()
